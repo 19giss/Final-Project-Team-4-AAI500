@@ -1,9 +1,9 @@
-# Final Project - AAI 500 (Team 3)
+# Final Project - AAI 500 (Team 4)
 
 ## Team Members
-- Member A: Data Cleaning/Preparation
-- Member B: EDA & Visualization
-- Member C: Modeling & Metrics
+- Tavia A: Data Cleaning/Preparation
+- Francisco B: EDA & Visualization
+- Gisselle C: Modeling & Metrics
 
 ## Project Description
 End-to-end statistical analysis using Python and Jupyter Notebook.  
