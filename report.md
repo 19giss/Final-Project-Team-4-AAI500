@@ -1,7 +1,13 @@
-# Final Project Report (Draft - GENERIC RESPONSES AS OF SEPT 29. These searve as a starting point ONLY)
+# Final Project Report (Draft - Updated September 29)
 
 ## Introduction
-Our team selected the **UCI Student Performance dataset**, which combines information from two secondary school courses (Math and Portuguese). The dataset includes demographic, social, and academic attributes of students, with final grade (G3) serving as the target variable. The purpose of our analysis is to explore factors that influence student performance and to build predictive models that can estimate outcomes based on the available features.
+Our team selected the **UCI Student Performance dataset**, which combines information from two secondary school courses (Math and Portuguese). The dataset includes demographic, social, and academic attributes of students, with final grade (G3) serving as the target variable.  
+
+The objective of our analysis is to explore factors that influence student performance and to establish predictive baselines. Specifically, we aim to answer:  
+1. Which demographic, social, and academic factors are most strongly associated with final course performance (G3)?  
+2. Can baseline models (e.g., regression and classification) reasonably predict final grades or pass/fail status?  
+
+These questions will guide our cleaning, exploratory data analysis (EDA), and modeling steps in the coming weeks.
 
 ## Data Cleaning / Preparation
 The cleaning process followed these main steps:
@@ -23,6 +29,11 @@ We examined both numeric and categorical variables to understand the dataset bef
 - The final grade (G3) distribution was skewed toward the middle range (10–15 out of 20), with relatively few students achieving very low (0–5) or very high (18–20) scores.  
 - Absences were highly skewed, with the majority of students having fewer than 10, but some outliers exceeded 50.  
 
+Additional descriptive statistics:  
+- Average student age was ~16.7 years (std ≈ 1.2).  
+- Average absences were ~5.7 days, though the distribution was skewed due to a few extreme values.  
+- Mean final grade (G3) was ~11.9 out of 20, with a standard deviation of 3.2.  
+
 ### Categorical variables
 - Slightly more female students than male students were included.  
 - Most students lived in urban areas and reported internet access at home.  
@@ -32,6 +43,7 @@ We examined both numeric and categorical variables to understand the dataset bef
 - Histograms of grades (G1, G2, G3) showed consistent patterns across terms, with distributions clustered in the mid-range.  
 - Boxplots revealed outliers in absences and alcohol consumption (Dalc, Walc).  
 - A scatterplot of G1 versus G3 demonstrated a strong positive linear relationship, suggesting that early grades are predictive of final performance.  
+- A correlation heatmap was created to show feature relationships across variables.  
 
 ### Correlations
 - The correlation heatmap confirmed strong positive relationships between G1, G2, and G3.  
