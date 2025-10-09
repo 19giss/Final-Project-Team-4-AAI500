@@ -53,10 +53,56 @@ Additional descriptive statistics:
 EDA suggests that **grades, absences, and family background** are likely to be important predictors of student performance. These findings will guide the next stage of model selection.
 
 ## Model Selection
-*To be completed in Week 5.*
+
+We trained three baseline classifiers—Logistic Regression, Random Forest, and SVM (RBF)—on the cleaned, merged dataset to predict `performance_level` (Low <10, Medium 10–14, High ≥15). Grades G1, G2, and G3 were excluded from features to prevent leakage, since G3 defines the target variable.
+
+| Model | Accuracy | Macro-F1 |
+|--------|-----------|-----------|
+| Logistic Regression (no leak) | 0.507 | 0.504 |
+| **Random Forest** | **0.636** | **0.502** |
+| SVM (RBF kernel) | 0.474 | 0.479 |
+
+**Training details**
+- Train/test split: 80/20 stratified, random_state=42  
+- Logistic Regression: scaled with `StandardScaler(with_mean=False)`, `class_weight='balanced'`  
+- Random Forest: `n_estimators=300`, `min_samples_split=4`, `class_weight='balanced'`  
+- SVM: RBF kernel, `C=2.0`, `gamma='scale'`, `class_weight='balanced'`
+
+**Artifacts**
+- Metrics table: `data/model_outputs/model_metrics_summary.csv`  
+- Confusion matrices: three PNGs in `data/model_outputs/`  
+- Random Forest importances: `rf_feature_importances_top15.png`  
+- Logistic Regression odds ratios (High class): `logreg_odds_ratios_High.csv`
 
 ## Model Analysis
-*To be completed in Week 6.*
+
+The Random Forest achieved the best overall accuracy (63.6%), showing that nonlinear interactions among features improve prediction quality. Logistic Regression, while less accurate, provided interpretable coefficients that revealed consistent trends across models:
+
+**Positive predictors of high performance**
+- Desire for higher education (`higher_yes`)
+- Parental education (`Medu`, `Fedu`)
+- Study time
+- Internet access
+
+**Negative predictors**
+- Previous failures
+- Absences
+- School support needs (`schoolsup_yes`)
+- Alcohol use (`Walc`, `Dalc`)
+- Social activity (`goout`)
+
+**Interpretation:**  
+These findings support the hypothesis that engagement-related behaviors (study time, attendance) and family background significantly influence student performance. The “Medium” group remained hardest to classify, suggesting overlap with both lower and higher performers.
+
+**Limitations**
+- Correlational, not causal relationships  
+- Potential bias from self-reported variables  
+- Class imbalance (Medium dominates)  
+- Random Forest importances may favor variables with more unique values
+
+**Next Steps**
+Future iterations could test model tuning (e.g., hyperparameter optimization, SMOTE balancing) and use SHAP values for deeper interpretability.
+
 
 ## Conclusion & Recommendations
 *To be completed after model evaluation.*
