@@ -1,0 +1,4 @@
+Model,Accuracy,Macro-F1,BestParams
+Logistic Regression (tuned),0.5885167464114832,0.5360301199544698,"{'model__C': 0.25, 'model__penalty': 'l2', 'model__solver': 'liblinear'}"
+Random Forest (tuned),0.6698564593301436,0.6234123855252246,"{'model__max_depth': None, 'model__max_features': 'log2', 'model__min_samples_leaf': 4, 'model__min_samples_split': 2, 'model__n_estimators': 200}"
+SVM RBF (tuned),0.5358851674641149,0.5326692787294651,"{'model__C': 4.0, 'model__gamma': 0.01}"
