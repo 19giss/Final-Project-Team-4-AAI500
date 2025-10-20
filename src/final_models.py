@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
+#Final Project – AAI 500 (Fall 2025)
+#Team 4 | Francisco Monarrez Felix, Noslinn Gisselle Tosta
+
+#File: src/final_models.py
+#Purpose: Train and evaluate tuned Logistic Regression, Random Forest, and SVM (RBF) models
+#Dataset: data/clean/student_clean_classification_noG1G2.csv
+#Outputs: data/model_outputs/ (metrics + confusion matrices + feature importances)
+#Run from repo root:  python src/final_models.py
+
+
 # **Tuning**: Balanced with 3-4 parameters, 5-fold CV, ~6–8 min runtime
 
 # In[1]:
@@ -23,7 +34,12 @@ from sklearn.metrics import accuracy_score, f1_score, classification_report, Con
 # In[2]:
 
 
-repo_root = Path.cwd().parent  # assuming notebook is under /notebooks
+#repo_root = Path.cwd().parent  # assuming notebook is under /notebooks
+#data_path = repo_root / "data" / "clean" / "student_clean_classification_noG1G2.csv"
+#assert data_path.exists(), f"Missing: {data_path}"
+
+# Adjust repo_root so it finds the correct directory from /src
+repo_root = Path(__file__).resolve().parent.parent
 data_path = repo_root / "data" / "clean" / "student_clean_classification_noG1G2.csv"
 assert data_path.exists(), f"Missing: {data_path}"
 

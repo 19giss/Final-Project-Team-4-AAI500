@@ -1,6 +1,17 @@
-# Final Project Report (Updated October 12)
+# Predicting Student Academic Performance  
+**Team 4 – AAI 500: Probability and Statistics for Artificial Intelligence (Fall 2025)**  
+Noslinn Gisselle Tosta, Francisco Monarrez Félix, Tavia Wooten  
+University of San Diego – MS Applied Artificial Intelligence  
+Date: October 19, 2025  
 
-## Introduction
+---
+
+## Abstract
+This project explores predictive modeling of student academic performance using demographic, social, and educational variables from the UCI Student Performance dataset. After data cleaning, feature encoding, and model development, three machine learning models—Logistic Regression, Random Forest, and SVM—were evaluated using accuracy and macro-F1 metrics. Random Forest achieved the best performance (accuracy 0.67, macro-F1 0.62). The results suggest that study engagement, parental education, and attendance are key drivers of academic success.
+
+---
+
+## 1. Introduction
 Our team selected the **UCI Student Performance dataset**, which combines information from two secondary school courses (Math and Portuguese). The dataset includes demographic, social, and academic attributes of students, with final grade (G3) serving as the target variable.  
 
 The objective of our analysis is to explore factors that influence student performance and to establish predictive baselines. Specifically, we aim to answer:  
@@ -11,8 +22,8 @@ These questions guided our cleaning, exploratory data analysis (EDA), and modeli
 
 ---
 
-## Data Cleaning / Preparation
-The cleaning process followed these main steps:
+## 2. Methodology
+The cleaning and preparation process followed these main steps:
 - Imported both datasets (`student-mat.csv` and `student-por.csv`).
 - Inspected the data (`.info()` and `.head()`) to understand structure and spot inconsistencies.
 - Saved copies of raw datasets for reference.
@@ -26,7 +37,7 @@ No imputation was performed to avoid data leakage; instead, incomplete records w
 
 ---
 
-## Exploratory Data Analysis (EDA)
+## 3. Exploratory Data Analysis (EDA)
 We examined both numeric and categorical variables to understand the dataset before modeling.
 
 ### Numeric variables
@@ -38,20 +49,19 @@ We examined both numeric and categorical variables to understand the dataset bef
 ### Categorical variables
 - Slightly more female than male students.  
 - Most lived in urban areas and had internet access.  
-- A majority intended to pursue higher education.  
+- A large majority expressed the desire to pursue higher education.  
 
 ### Correlations
 - Strong positive correlations between G1, G2, and G3.  
-- Moderate positive correlation between parental education (`Medu`, `Fedu`) and student performance.  
+- Moderate positive correlations between parental education (`Medu`, `Fedu`) and student grades, suggesting that family background contributes to academic outcomes.  
 
 **Summary:**  
-EDA suggested that **study habits, attendance, and family background** are likely key predictors of performance.
+EDA suggested that **grades, absences, and family background** are likely to be important predictors of student performance. These findings guided model selection and interpretation.
 
 ---
 
-## Model Selection (Baseline)
-We trained three baseline classifiers — **Logistic Regression**, **Random Forest**, and **SVM (RBF)** — to predict `performance_level` (Low <10, Medium 10–14, High ≥15).  
-Grades G1, G2, and G3 were excluded from predictors to prevent leakage.
+## 4. Model Development (Baseline)
+We trained three baseline classifiers — **Logistic Regression**, **Random Forest**, and **SVM (RBF)** — on the cleaned, merged dataset to predict `performance_level` (Low <10, Medium 10–14, High ≥15). Grades G1, G2, and G3 were excluded from predictors to prevent leakage, since G3 defines the target variable.
 
 | Model | Accuracy | Macro-F1 |
 |--------|-----------|-----------|
@@ -60,14 +70,14 @@ Grades G1, G2, and G3 were excluded from predictors to prevent leakage.
 | SVM (RBF kernel) | 0.474 | 0.479 |
 
 **Training details**
-- 80/20 stratified split (`random_state=42`)  
+- Train/test split: 80/20 stratified, `random_state=42`  
 - Logistic Regression: scaled with `StandardScaler(with_mean=False)`, `class_weight='balanced'`  
 - Random Forest: `n_estimators=300`, `min_samples_split=4`, `class_weight='balanced'`  
 - SVM: RBF kernel, `C=2.0`, `gamma='scale'`, `class_weight='balanced'`
 
 ---
 
-## Model Tuning (5-Fold Cross-Validation)
+## 5. Results and Discussion (Tuned Models)
 To improve generalization, we performed **GridSearchCV** (5-fold stratified, macro-F1 scoring) on all three models.
 
 | Model | Accuracy | Macro-F1 |
@@ -87,33 +97,23 @@ To improve generalization, we performed **GridSearchCV** (5-fold stratified, mac
 - **SVM** performed moderately well but struggled with class imbalance, especially for the “Medium” category.
 
 All confusion matrices, feature importances, and metrics were exported to  
-`data/model_outputs/`.
+`data/model_outputs/`.  
+*(See Figure 1: Random Forest Confusion Matrix; Figure 2: Top 10 Feature Importances.)*
 
 ---
 
-## Model Analysis
+### 5.1 Model Analysis (Francisco’s Section)
+*(Placeholder for Francisco’s written interpretation.)*  
 
-**Positive predictors of high performance**
-- Desire for higher education (`higher_yes`)
-- Parental education (`Medu`, `Fedu`)
-- Study time
-- Internet access
-
-**Negative predictors**
-- Previous failures
-- Absences
-- School support needs (`schoolsup_yes`)
-- Alcohol consumption (`Walc`, `Dalc`)
-- High social activity (`goout`)
-
-**Interpretation:**  
-The **Random Forest** model achieved the best performance, with **accuracy = 0.67** and **macro-F1 = 0.62**, suggesting it generalized well across categories.  
-Behavioral and family-related factors consistently influenced student outcomes, supporting the hypothesis that engagement and environment drive academic success.  
-The “Medium” group remained the most challenging to classify due to overlap with both higher and lower performers.
+This section will expand on:
+- Comparison of baseline vs tuned model improvements  
+- Model interpretability and reasoning for selecting Random Forest as best performer  
+- Connection between results and the research question (“What factors most influence performance?”)  
+- Visual references (confusion matrix, feature importance, ROC curve)  
 
 ---
 
-## Limitations
+## 6. Limitations
 - Relationships are **correlational**, not causal.  
 - Potential bias from **self-reported variables** (e.g., alcohol use, study time).  
 - **Class imbalance** (Medium dominates).  
@@ -122,7 +122,16 @@ The “Medium” group remained the most challenging to classify due to overlap 
 
 ---
 
-## Conclusion & Recommendations
+## 7. Reproducibility
+All code, datasets, and model outputs are fully reproducible via the included notebooks (`/notebooks`) and the final script (`/src/final_models.py`) in the GitHub repository.  
+Model outputs and figures can be regenerated by running:  
+```bash
+python src/final_models.py
+```
+
+---
+
+## 8. Conclusion and Recommendations
 Model tuning significantly improved predictive accuracy, with the Random Forest model achieving the highest performance after optimization.  
 Results highlight the impact of **study engagement**, **parental education**, and **attendance** on academic success.  
 
@@ -133,3 +142,9 @@ Results highlight the impact of **study engagement**, **parental education**, an
 
 **Final takeaway:**  
 The project demonstrates that student performance can be predicted with moderate accuracy using demographic and behavioral data, emphasizing the strong influence of engagement and family support.
+
+---
+
+## 9. References
+- Cortez, P., & Silva, A. (2008). *Using Data Mining to Predict Secondary School Student Performance.* University of Minho, Portugal. UCI Machine Learning Repository.  
+- Pedregosa, F. et al. (2011). *Scikit-learn: Machine Learning in Python.* Journal of Machine Learning Research, 12, 2825–2830.
