@@ -102,14 +102,35 @@ All confusion matrices, feature importances, and metrics were exported to
 
 ---
 
-### 5.1 Model Analysis (Francisco’s Section)
-*(Placeholder for Francisco’s written interpretation.)*  
 
-This section will expand on:
-- Comparison of baseline vs tuned model improvements  
-- Model interpretability and reasoning for selecting Random Forest as best performer  
-- Connection between results and the research question (“What factors most influence performance?”)  
-- Visual references (confusion matrix, feature importance, ROC curve)  
+### 5.1 Model Analysis 
+
+The tuned models demonstrated clear improvements over the baselines, particularly for Random Forest, which achieved the highest overall accuracy and balanced performance across all classes. Logistic Regression improved modestly after tuning, while SVM continued to underperform in comparison, primarily due to the challenge of class imbalance.
+
+**Comparison of Baseline vs Tuned Models**
+Baseline results showed that Random Forest already performed best, with an accuracy of approximately 0.64. After parameter optimization, accuracy increased to **0.67** and macro-F1 to **0.62**, confirming that fine-tuning hyperparameters enhanced generalization. Logistic Regression improved from 0.51 to 0.59 accuracy, while SVM improved slightly to 0.54 accuracy and 0.53 macro-F1. These improvements demonstrate that tuning was beneficial but model performance still varied by algorithm complexity.
+
+**Model Interpretability and Key Insights**
+The Random Forest model was selected as the best-performing classifier due to its ability to capture nonlinear feature interactions and handle mixed data types effectively. It outperformed Logistic Regression, which was more limited to linear relationships, and SVM, which was less robust to class imbalance.
+Feature importance analysis revealed that **failures**, **absences**, and **parental education (Medu, Fedu)** were the most influential variables in predicting student outcomes. Behavioral factors such as **alcohol consumption (Walc, Dalc)** and **study time** also had notable effects. These results suggest that **academic engagement, attendance, and family background** are among the strongest drivers of student success.
+
+**Interpretation of Model Behavior**
+The Random Forest confusion matrix showed that most misclassifications occurred between **Medium** and **High** performers, reflecting overlap in their grade ranges. The “Low” performance group was classified more reliably, suggesting clearer separation from the others.
+Overall, Random Forest provided the best trade-off between interpretability and predictive power, indicating that nonlinear relationships between behavioral and social variables play a major role in academic outcomes.
+
+**Visual References**
+
+![Figure 5.1.1: Random Forest Confusion Matrix](data/model_outputs/confusion_matrix_random_forest_tuned.png)
+*Figure 5.1.1: Confusion matrix of the tuned Random Forest model showing classification distribution across performance levels.*
+
+![Figure 5.1.2: Random Forest Feature Importances (Top 10)](data/model_outputs/rf_feature_importances_top10_tuned.png)
+*Figure 5.1.2: Top 10 most important features in predicting performance, highlighting behavioral and family-related variables.*
+
+![Figure 5.1.3: Feature Importances (Extended View)](data/model_outputs/rf_feature_importances_top15.png)
+*Figure 5.1.3: Extended feature importance chart showing influence of study time, alcohol use, and absences on performance.*
+
+![Figure 5.1.4: Performance Level Distribution](data/model_outputs/performance_level_distribution.png)
+*Figure 5.1.4: Class distribution of performance levels in the dataset, showing slight imbalance toward the Medium group.*
 
 ---
 
